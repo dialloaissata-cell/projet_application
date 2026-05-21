@@ -17,3 +17,6 @@ def get_etudiants():
     return load_data()
 
 #pour acceder au swagger et acceuil on ecrit fastapi dev 
+
+# psycopg2 envoie la requête à PostgreSQL récupère les résultats transforme les données pour Python.Il permet la communication entre python et postgresql
+#pour l'installer on fait pip install psycopg2-binary car version prête à utiliser plus simple pour les projets étudiants et développement.
