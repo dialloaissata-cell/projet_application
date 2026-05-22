@@ -15,7 +15,7 @@ def create_table():
     cur.execute("""
     CREATE TABLE IF NOT EXISTS classes (
         id_classe SERIAL PRIMARY KEY,
-        nom_classe VARCHAR(25) NOT NULL
+        nom_classe VARCHAR (25) NOT NULL
     );
     """)
 
