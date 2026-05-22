@@ -31,6 +31,36 @@ def create_table():
     );
     """)
 
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS matieres (
+        id_matiere serial PRIMARY KEY,
+        nom_matiere varchar(25));
+    """)
+
+    cur.execute("""
+        CREATE TABLE etuadiant_matiere(
+        numero VARCHAR(10),
+        FOREIGN KEY (numero) REFERENCES etudiants(numero));
+                """)
+    
+    cur.execute("""
+        CREATE TABLE note_devoir(
+        id_note_devoir serial PRIMARY KEY,
+        valeur_devoir INTEGER,
+        id_matiere INTEGER,
+        FOREIGN KEY(id_matiere) REFERENCES matieres(id_matiere));
+                """)
+      
+
+    cur.execute("""
+        CREATE TABLE note_examen(
+        id_note_examen serial PRIMARY KEY,
+        valeur_examen  INTEGER,
+        id_matiere INTEGER,
+        FOREIGN KEY(id_matiere) REFERENCES matieres(id_matiere));
+                """)
+      
+
     conn.commit()
     cur.close()
     conn.close()
