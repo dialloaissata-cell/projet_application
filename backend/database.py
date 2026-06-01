@@ -3,7 +3,7 @@ import psycopg2
 def connexion_à_postgresql():
     return psycopg2.connect(
         host="localhost",
-        dbname="projet_framework",
+        dbname="gestion_etudiants",
         user="postgres",
         password="A17122003f",
     )
@@ -21,7 +21,8 @@ def create_table():
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS etudiants (
-        numero VARCHAR(10) PRIMARY KEY,
+        id_etudiant SERIAL PRIMARY KEY,
+        numero VARCHAR(10) ,
         code VARCHAR(10),
         prenom VARCHAR(25),
         nom VARCHAR(25),
@@ -38,28 +39,25 @@ def create_table():
     """)
 
     cur.execute("""
-        CREATE TABLE etuadiant_matiere(
-        numero VARCHAR(10),
-        FOREIGN KEY (numero) REFERENCES etudiants(numero));
+        CREATE TABLE notes (
+        id_note SERIAL PRIMARY KEY,
+        id_etudiant INTEGER,
+        FOREIGN KEY (id_etudiant) REFERENCES etudiants(id_etudiant),
+        id_matiere INTEGER,
+        FOREIGN KEY (id_matiere) REFERENCES matieres(id_matiere),
+        note_examen INTEGER);
                 """)
     
     cur.execute("""
         CREATE TABLE note_devoir(
         id_note_devoir serial PRIMARY KEY,
         valeur_devoir INTEGER,
-        id_matiere INTEGER,
-        FOREIGN KEY(id_matiere) REFERENCES matieres(id_matiere));
+        id_note  INTEGER,
+        FOREIGN KEY(id_note) REFERENCES notes(id_note))
+        ;
                 """)
       
 
-    cur.execute("""
-        CREATE TABLE note_examen(
-        id_note_examen serial PRIMARY KEY,
-        valeur_examen  INTEGER,
-        id_matiere INTEGER,
-        FOREIGN KEY(id_matiere) REFERENCES matieres(id_matiere));
-                """)
-      
 
     conn.commit()
     cur.close()
